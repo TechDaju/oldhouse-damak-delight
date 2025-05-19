@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { toast } from "sonner";
-import { Phone, MapPin, Mail, WhatsApp, Clock } from "lucide-react";
+import { Phone, MapPin, Mail, MessageSquare, Clock } from "lucide-react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -118,7 +118,7 @@ const ContactPage = () => {
                 rel="noopener noreferrer"
                 className="inline-flex items-center text-green-600 hover:underline"
               >
-                <WhatsApp className="h-5 w-5 mr-1" /> WhatsApp
+                <MessageSquare className="h-5 w-5 mr-1" /> WhatsApp
               </a>
             </div>
             
