@@ -15,6 +15,8 @@ import ReservationPage from "@/pages/ReservationPage";
 import GalleryPage from "@/pages/GalleryPage";
 import AboutPage from "@/pages/AboutPage";
 import ContactPage from "@/pages/ContactPage";
+import DeliveryPage from "@/pages/DeliveryPage";
+import DeliverySuccessPage from "@/pages/DeliverySuccessPage";
 import NotFound from "@/pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -34,6 +36,8 @@ const App = () => (
             <Route path="/gallery" element={<GalleryPage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/contact" element={<ContactPage />} />
+            <Route path="/delivery" element={<DeliveryPage />} />
+            <Route path="/delivery-success" element={<DeliverySuccessPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
