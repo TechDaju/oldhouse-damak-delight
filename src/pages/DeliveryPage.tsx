@@ -115,29 +115,27 @@ const DeliveryPage = () => {
   
   // Function to prepare order data for WhatsApp
   const formatOrderForWhatsApp = (data: DeliveryFormValues) => {
-    // Format current date and time
-    const orderDateTime = new Date().toLocaleString('en-NP');
+    // Format cart items with emojis
+    const itemsList = cartItems.map(item => {
+      // Extract numeric value from price string (e.g., "रू 250" -> 250)
+      const priceValue = parseInt(item.item.price.replace(/\D/g, ''));
+      const itemTotal = priceValue * item.quantity;
+      return `- ${item.item.name} x${item.quantity} = Rs.${itemTotal}`;
+    }).join('\n');
     
-    // Format cart items
-    const itemsList = cartItems.map(item => 
-      `• ${item.quantity}x ${item.item.name} (${item.item.price})`
-    ).join('\n');
-    
-    // Create formatted message
+    // Create formatted message with emojis
     return encodeURIComponent(
-      `*New Order from Old House Cafe Website*\n\n` +
-      `*Order Time:* ${orderDateTime}\n` +
-      `*Customer:* ${data.name}\n` +
-      `*Phone:* ${data.phone}\n` +
-      `*Address:* ${data.address}\n` +
-      `*Notes:* ${data.notes || 'None'}\n\n` +
-      `*Order Items:*\n${itemsList}\n\n` +
-      `*Total Amount:* रू ${calculateTotal()}\n\n` +
-      `Please confirm this order. Thank you!`
+      `🛒 New Order:\n` +
+      `👤 Name: ${data.name}\n` +
+      `📞 Phone: ${data.phone}\n` +
+      `🏠 Address: ${data.address}\n` +
+      `${data.notes ? `📝 Notes: ${data.notes}\n` : ''}` +
+      `🍴 Items:\n${itemsList}\n` +
+      `💰 Total = Rs.${calculateTotal()}`
     );
   };
 
-  // Send order to WhatsApp
+  // Send order to WhatsApp and navigate to success page
   const sendOrderToWhatsApp = (data: DeliveryFormValues) => {
     const formattedMessage = formatOrderForWhatsApp(data);
     const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${formattedMessage}`;
@@ -151,10 +149,13 @@ const DeliveryPage = () => {
     };
     
     // Open WhatsApp in a new tab
-    window.open(whatsappUrl, '_blank');
+    const whatsappWindow = window.open(whatsappUrl, '_blank');
     
-    // Navigate to success page with order details
-    navigate("/delivery-success", { state: { orderDetails: orderData } });
+    // Set a timer to navigate to success page after WhatsApp opens
+    setTimeout(() => {
+      // Navigate to success page with order details
+      navigate("/delivery-success", { state: { orderDetails: orderData } });
+    }, 1000); // Short delay to ensure WhatsApp opens first
   };
 
   function onSubmit(data: DeliveryFormValues) {
@@ -169,7 +170,7 @@ const DeliveryPage = () => {
     sendOrderToWhatsApp(data);
     
     toast.success("Order submitted successfully!", {
-      description: "Your order details have been sent via WhatsApp.",
+      description: "Your order has been sent to the restaurant via WhatsApp.",
     });
     
     // Reset form and cart
