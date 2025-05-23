@@ -1,3 +1,4 @@
+
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
@@ -11,22 +12,22 @@ const HomePage = () => {
 
   const slides = [
     {
-      image: "/lovable-uploads/a8aabfdc-5c90-4a39-9c49-dbc70bd7e9d5.png",
+      image: "/lovable-uploads/9de10d02-9982-4fdd-a095-79c0ef01f297.png",
       heading: "Welcome to Old House Cafe",
       button: { text: "View Our Menu", link: "/menu" }
     },
     {
-      image: "/lovable-uploads/e56aff36-e7cd-4d04-9782-803a116f178a.png",
+      image: "/lovable-uploads/47797ac9-eeca-4b1b-b8dd-9c200c07c3a6.png",
       heading: "Where Every Cup Tells a Story",
       button: { text: "Book a Table", link: "/reservation" }
     },
     {
-      image: "/lovable-uploads/a86b2775-8153-438f-90b5-2ebae7d7f2d9.png",
+      image: "/lovable-uploads/5dffdaf6-6eb8-45ef-8b4f-c66d904580c7.png",
       heading: "Authentic Taste, Cozy Space",
       button: { text: "View Our Menu", link: "/menu" }
     },
     {
-      image: "/lovable-uploads/8489200d-707f-4dcf-886c-ea8f7227dbbf.png",
+      image: "/lovable-uploads/caa4dad2-fb23-4d61-8688-33fafeb694ab.png",
       heading: "Visit Us in Damak – Your Second Home",
       button: { text: "Book a Table", link: "/reservation" }
     }
