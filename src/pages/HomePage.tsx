@@ -1,40 +1,141 @@
-
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Clock } from "lucide-react";
+import { ArrowRight, Clock, Volume2, VolumeX } from "lucide-react";
+import { useInterval } from "@/hooks/use-interval";
 
 const HomePage = () => {
+  const [activeSlide, setActiveSlide] = useState(0);
+  const [isMusicPlaying, setIsMusicPlaying] = useState(false);
+  const [audioElement, setAudioElement] = useState<HTMLAudioElement | null>(null);
+
+  const slides = [
+    {
+      image: "/lovable-uploads/a8aabfdc-5c90-4a39-9c49-dbc70bd7e9d5.png",
+      heading: "Welcome to Old House Cafe",
+      button: { text: "View Our Menu", link: "/menu" }
+    },
+    {
+      image: "/lovable-uploads/e56aff36-e7cd-4d04-9782-803a116f178a.png",
+      heading: "Where Every Cup Tells a Story",
+      button: { text: "Book a Table", link: "/reservation" }
+    },
+    {
+      image: "/lovable-uploads/a86b2775-8153-438f-90b5-2ebae7d7f2d9.png",
+      heading: "Authentic Taste, Cozy Space",
+      button: { text: "View Our Menu", link: "/menu" }
+    },
+    {
+      image: "/lovable-uploads/8489200d-707f-4dcf-886c-ea8f7227dbbf.png",
+      heading: "Visit Us in Damak – Your Second Home",
+      button: { text: "Book a Table", link: "/reservation" }
+    }
+  ];
+
+  // Initialize audio element
+  useEffect(() => {
+    const audio = new Audio("/ambient-music.mp3");
+    audio.loop = true;
+    audio.volume = 0.3;
+    setAudioElement(audio);
+
+    return () => {
+      audio.pause();
+      audio.src = "";
+    };
+  }, []);
+
+  // Toggle music
+  const toggleMusic = () => {
+    if (audioElement) {
+      if (isMusicPlaying) {
+        audioElement.pause();
+      } else {
+        audioElement.play().catch(error => {
+          console.error("Audio playback failed:", error);
+        });
+      }
+      setIsMusicPlaying(!isMusicPlaying);
+    }
+  };
+
+  // Auto-rotate slides every 3 seconds
+  useInterval(() => {
+    setActiveSlide((prevSlide) => (prevSlide + 1) % slides.length);
+  }, 3000);
+
   return (
     <>
-      {/* Hero Section */}
-      <section className="relative h-screen">
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage:
-              "url('/lovable-uploads/a8aabfdc-5c90-4a39-9c49-dbc70bd7e9d5.png')",
-          }}
-        >
-          <div className="absolute inset-0 bg-black bg-opacity-50"></div>
-        </div>
-        <div className="container-custom relative h-full flex items-center">
-          <div className="max-w-2xl text-white">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold mb-4 animate-fade-up">
-              Welcome to <span className="text-gradient">Old House Cafe</span>
-            </h1>
-            <p className="text-xl md:text-2xl mb-6 animate-fade-up" style={{ animationDelay: "0.2s" }}>
-              Experience authentic Nepali cuisine in a cozy, traditional setting
-              at the heart of Damak.
-            </p>
-            <div className="flex flex-wrap gap-4 animate-fade-up" style={{ animationDelay: "0.4s" }}>
-              <Button asChild size="lg">
-                <Link to="/menu">View Our Menu</Link>
-              </Button>
-              <Button asChild variant="secondary" size="lg">
-                <Link to="/reservation">Book a Table</Link>
-              </Button>
-            </div>
+      {/* Hero Section with Slideshow */}
+      <section className="relative h-screen overflow-hidden">
+        {/* Background Slides */}
+        {slides.map((slide, index) => (
+          <div
+            key={index}
+            className={`absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-1000 ${
+              activeSlide === index ? "opacity-100" : "opacity-0"
+            }`}
+            style={{
+              backgroundImage: `url('${slide.image}')`,
+              zIndex: activeSlide === index ? 1 : 0,
+            }}
+          >
+            <div className="absolute inset-0 bg-black bg-opacity-60"></div>
           </div>
+        ))}
+
+        {/* Content */}
+        <div className="container-custom relative h-full flex flex-col items-center justify-center z-10">
+          <div className="max-w-3xl text-center text-white">
+            {slides.map((slide, index) => (
+              <div 
+                key={index} 
+                className={`transition-opacity duration-700 ${
+                  activeSlide === index ? "opacity-100" : "opacity-0 absolute"
+                }`}
+              >
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold mb-6 animate-fade-up">
+                  <span className="text-gradient">{slide.heading}</span>
+                </h1>
+                <p className="text-xl md:text-2xl mb-8 animate-fade-up" style={{ animationDelay: "0.2s" }}>
+                  Experience authentic Nepali cuisine in a cozy, traditional setting
+                  at the heart of Damak.
+                </p>
+                <div className="animate-fade-up" style={{ animationDelay: "0.4s" }}>
+                  <Button 
+                    asChild 
+                    size="lg" 
+                    className="transition-transform hover:scale-105"
+                  >
+                    <Link to={slide.button.link}>{slide.button.text}</Link>
+                  </Button>
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          {/* Slide indicators */}
+          <div className="absolute bottom-8 left-0 right-0 flex justify-center gap-2 z-20">
+            {slides.map((_, index) => (
+              <button
+                key={index}
+                className={`w-3 h-3 rounded-full transition-all ${
+                  activeSlide === index ? "bg-white scale-125" : "bg-white/50"
+                }`}
+                onClick={() => setActiveSlide(index)}
+                aria-label={`Go to slide ${index + 1}`}
+              />
+            ))}
+          </div>
+          
+          {/* Music toggle button */}
+          <button 
+            onClick={toggleMusic}
+            className="absolute bottom-8 right-8 bg-black/30 p-3 rounded-full text-white hover:bg-black/50 transition-colors z-20"
+            aria-label={isMusicPlaying ? "Mute ambient music" : "Play ambient music"}
+          >
+            {isMusicPlaying ? <Volume2 size={20} /> : <VolumeX size={20} />}
+          </button>
         </div>
       </section>
 
