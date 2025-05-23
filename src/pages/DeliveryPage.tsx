@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { toast } from "sonner";
 import { ShoppingCart, Check, Plus, Minus, Trash2 } from "lucide-react";
@@ -52,7 +53,7 @@ const deliveryFormSchema = z.object({
 
 type DeliveryFormValues = z.infer<typeof deliveryFormSchema>;
 
-// WhatsApp business number for the cafe - updated with the provided number
+// WhatsApp business number for the cafe
 const WHATSAPP_NUMBER = "9764493536";
 
 const DeliveryPage = () => {
@@ -137,10 +138,24 @@ const DeliveryPage = () => {
     );
   };
 
-  // Send order to WhatsApp and redirect
+  // Send order to WhatsApp
   const sendOrderToWhatsApp = (data: DeliveryFormValues) => {
     const formattedMessage = formatOrderForWhatsApp(data);
-    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${formattedMessage}`, '_blank');
+    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${formattedMessage}`;
+    
+    // Store order data for potential future reference
+    const orderData = {
+      customer: data,
+      items: cartItems,
+      total: calculateTotal(),
+      orderDate: new Date(),
+    };
+    
+    // Navigate to success page with order details
+    navigate("/delivery-success", { state: { orderDetails: orderData } });
+    
+    // Open WhatsApp in a new tab
+    window.open(whatsappUrl, '_blank');
   };
 
   function onSubmit(data: DeliveryFormValues) {
@@ -151,17 +166,7 @@ const DeliveryPage = () => {
 
     setIsSubmitting(true);
     
-    // Store order data for potential future use
-    const orderData = {
-      customer: data,
-      items: cartItems,
-      total: calculateTotal(),
-      orderDate: new Date(),
-    };
-    
-    console.log("Order data:", orderData);
-    
-    // Send order to WhatsApp
+    // Send order data to WhatsApp
     sendOrderToWhatsApp(data);
     
     toast.success("Order submitted successfully!", {
@@ -172,9 +177,6 @@ const DeliveryPage = () => {
     form.reset();
     setCartItems([]);
     setIsSubmitting(false);
-    
-    // Navigate to success page
-    navigate("/delivery-success");
   }
 
   const filteredItems = activeCategory === "all" 

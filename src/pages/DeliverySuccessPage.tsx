@@ -1,10 +1,13 @@
 
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 import { CheckCircle } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
 const DeliverySuccessPage = () => {
+  const location = useLocation();
+  const orderDetails = location.state?.orderDetails;
+
   // Scroll to top when component mounts
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -41,7 +44,7 @@ const DeliverySuccessPage = () => {
           <div className="mt-8 pt-4 border-t border-muted">
             <p className="text-sm text-muted-foreground">
               Have questions about your order? <br />
-              Call us at <a href="tel:+9779800000000" className="text-primary hover:underline">+977 980-000-0000</a>
+              Call us at <a href="tel:9764493536" className="text-primary hover:underline">9764493536</a>
             </p>
           </div>
         </div>
