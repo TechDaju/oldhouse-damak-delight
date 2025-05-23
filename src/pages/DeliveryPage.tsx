@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { toast } from "sonner";
 import { ShoppingCart, Check, Plus, Minus, Trash2 } from "lucide-react";
@@ -143,7 +142,7 @@ const DeliveryPage = () => {
     const formattedMessage = formatOrderForWhatsApp(data);
     const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${formattedMessage}`;
     
-    // Store order data for potential future reference
+    // Store order data for success page
     const orderData = {
       customer: data,
       items: cartItems,
@@ -151,11 +150,11 @@ const DeliveryPage = () => {
       orderDate: new Date(),
     };
     
-    // Navigate to success page with order details
-    navigate("/delivery-success", { state: { orderDetails: orderData } });
-    
     // Open WhatsApp in a new tab
     window.open(whatsappUrl, '_blank');
+    
+    // Navigate to success page with order details
+    navigate("/delivery-success", { state: { orderDetails: orderData } });
   };
 
   function onSubmit(data: DeliveryFormValues) {
@@ -170,7 +169,7 @@ const DeliveryPage = () => {
     sendOrderToWhatsApp(data);
     
     toast.success("Order submitted successfully!", {
-      description: "Your order details have been sent to WhatsApp. Please complete the process there.",
+      description: "Your order details have been sent via WhatsApp.",
     });
     
     // Reset form and cart
