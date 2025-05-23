@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { toast } from "sonner";
 import { ShoppingCart, Check, Plus, Minus, Trash2 } from "lucide-react";
@@ -53,8 +52,8 @@ const deliveryFormSchema = z.object({
 
 type DeliveryFormValues = z.infer<typeof deliveryFormSchema>;
 
-// WhatsApp business number for the cafe - replace with your actual number
-const WHATSAPP_NUMBER = "9779800000000";
+// WhatsApp business number for the cafe - updated with the provided number
+const WHATSAPP_NUMBER = "9764493536";
 
 const DeliveryPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
