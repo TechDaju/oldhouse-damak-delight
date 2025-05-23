@@ -16,75 +16,57 @@ const GalleryPage = () => {
   const galleryImages: GalleryImage[] = [
     {
       id: 1,
-      src: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
-      alt: "Cozy restaurant interior with wooden tables",
+      src: "/lovable-uploads/824c775b-d94b-493d-bcaf-24d02edf25db.png",
+      alt: "Old House Cafe entrance pathway at night",
       category: "ambiance",
     },
     {
       id: 2,
-      src: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
-      alt: "Restaurant interior with warm lighting",
+      src: "/lovable-uploads/8489200d-707f-4dcf-886c-ea8f7227dbbf.png",
+      alt: "Old House Cafe entrance with plants and lighting",
       category: "ambiance",
     },
     {
       id: 3,
-      src: "https://images.unsplash.com/photo-1600353565554-155246029dd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
-      alt: "Traditional Nepali meal with rice and curries",
-      category: "food",
+      src: "/lovable-uploads/f91c880f-4bd7-4928-a1fd-33eb3b178653.png",
+      alt: "Old House Cafe pathway and entrance with staff",
+      category: "ambiance",
     },
     {
       id: 4,
-      src: "https://images.unsplash.com/photo-1611489142329-5f62cfa43e6e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
-      alt: "Thali set with multiple dishes",
-      category: "food",
+      src: "/lovable-uploads/c0a568dc-e97e-428b-832a-8e7d6b0d1252.png",
+      alt: "Old House Cafe neon sign at night",
+      category: "ambiance",
     },
     {
       id: 5,
-      src: "https://images.unsplash.com/photo-1626401109487-256249cfc6c0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
-      alt: "Freshly steamed momos",
-      category: "food",
+      src: "/lovable-uploads/a8aabfdc-5c90-4a39-9c49-dbc70bd7e9d5.png",
+      alt: "Old House Restaurant & Bar sign entrance",
+      category: "ambiance",
     },
     {
       id: 6,
-      src: "https://images.unsplash.com/photo-1576095910326-9de5a8b207e8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
-      alt: "People enjoying dinner at restaurant",
-      category: "events",
+      src: "/lovable-uploads/e56aff36-e7cd-4d04-9782-803a116f178a.png",
+      alt: "Old House Restaurant & Bar illuminated entrance",
+      category: "ambiance",
     },
     {
       id: 7,
-      src: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
-      alt: "Private event celebration",
+      src: "/lovable-uploads/a86b2775-8153-438f-90b5-2ebae7d7f2d9.png",
+      alt: "Staff working at the food counter",
       category: "events",
     },
     {
       id: 8,
-      src: "https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
-      alt: "Restaurant terrace with outdoor seating",
+      src: "/lovable-uploads/292792cf-2213-4d5e-937a-0e42b1ed84a9.png",
+      alt: "Cozy outdoor dining area with wooden table",
       category: "ambiance",
     },
     {
       id: 9,
-      src: "https://images.unsplash.com/photo-1571934811356-5cc061b6821f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
-      alt: "Traditional Nepali masala tea",
-      category: "food",
-    },
-    {
-      id: 10,
-      src: "https://images.unsplash.com/photo-1597413545419-4013431dbfec?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2062&q=80",
-      alt: "Cultural dance performance",
-      category: "events",
-    },
-    {
-      id: 11,
-      src: "https://images.unsplash.com/photo-1497671954146-59a89ff626ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
-      alt: "Cozy coffee corner",
+      src: "/lovable-uploads/dea39149-c8c1-4b20-8ed7-6e6c6cf8690c.png",
+      alt: "Entrance pathway with potted plants and menu board",
       category: "ambiance",
-    },
-    {
-      id: 12,
-      src: "https://images.unsplash.com/photo-1633262912438-94079631248d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
-      alt: "Traditional Nepali dessert",
-      category: "food",
     },
   ];
   
@@ -94,7 +76,7 @@ const GalleryPage = () => {
     <>
       {/* Gallery Hero */}
       <section className="pt-32 pb-12 bg-cafe-50 relative">
-        <div className="absolute top-0 left-0 w-full h-full opacity-10 bg-[url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')] bg-fixed"></div>
+        <div className="absolute top-0 left-0 w-full h-full opacity-10 bg-[url('/lovable-uploads/a8aabfdc-5c90-4a39-9c49-dbc70bd7e9d5.png')] bg-fixed"></div>
         <div className="container-custom relative">
           <div className="text-center max-w-2xl mx-auto">
             <span className="inline-block text-spice-600 font-medium mb-2">OUR GALLERY</span>

@@ -12,7 +12,7 @@ const HomePage = () => {
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
             backgroundImage:
-              "url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')",
+              "url('/lovable-uploads/a8aabfdc-5c90-4a39-9c49-dbc70bd7e9d5.png')",
           }}
         >
           <div className="absolute inset-0 bg-black bg-opacity-50"></div>
@@ -99,8 +99,8 @@ const HomePage = () => {
             </div>
             <div className="relative">
               <img
-                src="https://images.unsplash.com/photo-1600353565554-155246029dd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
-                alt="Traditional Nepali food"
+                src="/lovable-uploads/8489200d-707f-4dcf-886c-ea8f7227dbbf.png"
+                alt="Old House Cafe entrance pathway"
                 className="rounded-lg shadow-xl w-full h-auto"
               />
               <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-lg shadow-lg hidden md:block">
@@ -134,7 +134,7 @@ const HomePage = () => {
                 description:
                   "Handmade dumplings filled with minced chicken or vegetables, served with spicy tomato chutney",
                 image:
-                  "https://images.unsplash.com/photo-1626401109487-256249cfc6c0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+                  "/lovable-uploads/a86b2775-8153-438f-90b5-2ebae7d7f2d9.png",
                 price: "रू 350",
               },
               {
@@ -142,7 +142,7 @@ const HomePage = () => {
                 description:
                   "A complete meal with rice, lentils, seasonal vegetables, pickles, and your choice of meat",
                 image:
-                  "https://images.unsplash.com/photo-1611489142329-5f62cfa43e6e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+                  "/lovable-uploads/292792cf-2213-4d5e-937a-0e42b1ed84a9.png",
                 price: "रू 550",
               },
               {
@@ -150,7 +150,7 @@ const HomePage = () => {
                 description:
                   "Our signature spiced tea with cardamom, cinnamon, and fresh milk",
                 image:
-                  "https://images.unsplash.com/photo-1571934811356-5cc061b6821f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+                  "/lovable-uploads/e56aff36-e7cd-4d04-9782-803a116f178a.png",
                 price: "रू 120",
               },
             ].map((item, index) => (
@@ -194,7 +194,7 @@ const HomePage = () => {
         className="py-24 relative bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage:
-            "url('https://images.unsplash.com/photo-1467003909585-2f8a72700288?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')",
+            "url('/lovable-uploads/f91c880f-4bd7-4928-a1fd-33eb3b178653.png')",
         }}
       >
         <div className="absolute inset-0 bg-cafe-950 bg-opacity-80"></div>
