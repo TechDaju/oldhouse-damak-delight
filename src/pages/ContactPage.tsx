@@ -109,11 +109,11 @@ const ContactPage = () => {
               </div>
               <h3 className="font-serif text-xl font-bold mb-4">Call Us</h3>
               <p className="text-muted-foreground mb-4">
-                Phone: <a href="tel:+9779800000000" className="text-primary hover:underline">+977 980-000-0000</a><br />
-                Reservations: <a href="tel:+9779700000000" className="text-primary hover:underline">+977 970-000-0000</a>
+                Phone: <a href="tel:9764493536" className="text-primary hover:underline">9764493536</a><br />
+                Reservations: <a href="tel:9764493536" className="text-primary hover:underline">9764493536</a>
               </p>
               <a 
-                href="https://wa.me/9779800000000" 
+                href="https://wa.me/9764493536" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="inline-flex items-center text-green-600 hover:underline"

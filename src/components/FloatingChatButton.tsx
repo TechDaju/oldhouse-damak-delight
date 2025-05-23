@@ -12,7 +12,7 @@ const FloatingChatButton = () => {
       {isOpen && (
         <div className="flex flex-col gap-3 mb-4 items-end animate-fade-in">
           <a
-            href="tel:+9764493536"
+            href="tel:9764493536"
             className="bg-white text-cafe-800 hover:bg-muted rounded-full p-3 shadow-lg flex items-center gap-2 hover-scale"
           >
             <span className="text-sm font-medium">Call Us</span>
