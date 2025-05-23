@@ -1,5 +1,5 @@
 
-import { useEffect, useContext } from "react";
+import { useEffect } from "react";
 import { CheckCircle } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -22,6 +22,33 @@ const DeliverySuccessPage = () => {
           <p className="text-muted-foreground mb-6">
             Thank you for your order. We've received your request and will prepare it shortly.
           </p>
+          
+          {orderDetails && (
+            <div className="bg-accent p-4 rounded-md mb-6 text-left">
+              <h2 className="font-medium mb-2 text-center">Order Summary</h2>
+              <div className="space-y-2 text-sm">
+                <p><span className="font-medium">Name:</span> {orderDetails.customer.name}</p>
+                <p><span className="font-medium">Phone:</span> {orderDetails.customer.phone}</p>
+                <p><span className="font-medium">Address:</span> {orderDetails.customer.address}</p>
+                {orderDetails.customer.notes && (
+                  <p><span className="font-medium">Notes:</span> {orderDetails.customer.notes}</p>
+                )}
+                
+                <div className="mt-3">
+                  <p className="font-medium">Items:</p>
+                  <ul className="mt-1 space-y-1 pl-4">
+                    {orderDetails.items.map((item, index) => (
+                      <li key={index}>
+                        {item.quantity}x {item.item.name} ({item.item.price})
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                
+                <p className="mt-2 font-medium text-primary">Total: रू {orderDetails.total}</p>
+              </div>
+            </div>
+          )}
           
           <div className="bg-accent p-4 rounded-md mb-6">
             <h2 className="font-medium mb-2">What happens next?</h2>
