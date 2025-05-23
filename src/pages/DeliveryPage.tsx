@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { toast } from "sonner";
 import { ShoppingCart, Check, Plus, Minus, Trash2 } from "lucide-react";
@@ -53,7 +54,7 @@ const deliveryFormSchema = z.object({
 type DeliveryFormValues = z.infer<typeof deliveryFormSchema>;
 
 // WhatsApp business number for the cafe - ensure it has the correct format (no + symbol)
-const WHATSAPP_NUMBER = "9764493536";
+const WHATSAPP_NUMBER = "9816902671"; // Updated to requested number
 
 const DeliveryPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -124,23 +125,27 @@ const DeliveryPage = () => {
     }).join('\n');
     
     // Create formatted message with emojis
-    return encodeURIComponent(
+    const message = 
       `🛒 New Order:\n` +
       `👤 Name: ${data.name}\n` +
       `📞 Phone: ${data.phone}\n` +
       `🏠 Address: ${data.address}\n` +
       `${data.notes ? `📝 Notes: ${data.notes}\n` : ''}` +
       `🍴 Items:\n${itemsList}\n` +
-      `💰 Total = Rs.${calculateTotal()}`
-    );
+      `💰 Total = Rs.${calculateTotal()}`;
+      
+    // Properly encode the message for URL use
+    return encodeURIComponent(message);
   };
 
   // Send order to WhatsApp and navigate to success page
   const sendOrderToWhatsApp = (data: DeliveryFormValues) => {
     const formattedMessage = formatOrderForWhatsApp(data);
-    // Fix WhatsApp URL format to use the international format without the + symbol
-    // The correct format is: https://wa.me/[country code][phone number]
+    
+    // The correct format is: https://wa.me/[phone number]?text=[message]
     const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${formattedMessage}`;
+    
+    console.log("Opening WhatsApp with URL:", whatsappUrl);
     
     // Store order data for success page
     const orderData = {
@@ -150,17 +155,22 @@ const DeliveryPage = () => {
       orderDate: new Date(),
     };
     
-    // Open WhatsApp in a new tab with proper window features to ensure it opens
-    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+    // Open WhatsApp in a new tab with proper window features
+    const newWindow = window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
     
-    console.log("WhatsApp URL:", whatsappUrl); // Log the URL for debugging
+    if (!newWindow) {
+      console.error("Failed to open new window, popup might be blocked");
+      toast.error("Failed to open WhatsApp. Please allow popups and try again.");
+      return false;
+    }
     
     // Set a timer to navigate to success page after WhatsApp opens
-    // Increased delay to ensure WhatsApp has time to open
     setTimeout(() => {
       // Navigate to success page with order details
       navigate("/delivery-success", { state: { orderDetails: orderData } });
-    }, 1500); // Longer delay to ensure WhatsApp opens first
+    }, 2000); // Longer delay to ensure WhatsApp opens first
+    
+    return true;
   };
 
   function onSubmit(data: DeliveryFormValues) {
@@ -173,15 +183,17 @@ const DeliveryPage = () => {
     
     try {
       // Send order data to WhatsApp
-      sendOrderToWhatsApp(data);
+      const whatsappOpened = sendOrderToWhatsApp(data);
       
-      toast.success("Order submitted successfully!", {
-        description: "Your order has been sent to the restaurant via WhatsApp.",
-      });
-      
-      // Reset form and cart
-      form.reset();
-      setCartItems([]);
+      if (whatsappOpened) {
+        toast.success("Order submitted successfully!", {
+          description: "Your order has been sent to the restaurant via WhatsApp.",
+        });
+        
+        // Reset form and cart
+        form.reset();
+        setCartItems([]);
+      }
     } catch (error) {
       console.error("Error sending order:", error);
       toast.error("Failed to send order. Please try again or contact the restaurant directly.");

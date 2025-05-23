@@ -1,12 +1,20 @@
 
 import { useEffect } from "react";
 import { CheckCircle } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
 const DeliverySuccessPage = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const orderDetails = location.state?.orderDetails;
+
+  // If no order details are found, redirect back to delivery page
+  useEffect(() => {
+    if (!orderDetails) {
+      navigate("/delivery");
+    }
+  }, [orderDetails, navigate]);
 
   // Scroll to top when component mounts
   useEffect(() => {
@@ -71,7 +79,7 @@ const DeliverySuccessPage = () => {
           <div className="mt-8 pt-4 border-t border-muted">
             <p className="text-sm text-muted-foreground">
               Have questions about your order? <br />
-              Call us at <a href="tel:9764493536" className="text-primary hover:underline">9764493536</a>
+              Call us at <a href="tel:9816902671" className="text-primary hover:underline">9816902671</a>
             </p>
           </div>
         </div>
