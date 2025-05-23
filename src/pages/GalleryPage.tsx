@@ -1,6 +1,14 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { X } from "lucide-react";
+import { 
+  Carousel, 
+  CarouselContent, 
+  CarouselItem, 
+  CarouselNext, 
+  CarouselPrevious 
+} from "@/components/ui/carousel";
+import { useInterval } from "@/hooks/use-interval";
 
 type GalleryImage = {
   id: number;
@@ -12,6 +20,7 @@ type GalleryImage = {
 const GalleryPage = () => {
   const [activeCategory, setActiveCategory] = useState<"food" | "ambiance" | "events" | "all">("all");
   const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
   
   const galleryImages: GalleryImage[] = [
     {
@@ -71,6 +80,18 @@ const GalleryPage = () => {
   ];
   
   const filteredImages = activeCategory === "all" ? galleryImages : galleryImages.filter(image => image.category === activeCategory);
+
+  // Auto-advance the carousel every 3 seconds
+  useInterval(() => {
+    if (filteredImages.length > 0) {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % filteredImages.length);
+    }
+  }, 3000);
+
+  // Reset current index when filtered images change
+  useEffect(() => {
+    setCurrentIndex(0);
+  }, [activeCategory]);
   
   return (
     <>
@@ -122,9 +143,37 @@ const GalleryPage = () => {
         </div>
       </section>
       
-      {/* Gallery Grid */}
+      {/* Gallery Carousel */}
       <section className="section bg-accent">
         <div className="container-custom">
+          <Carousel className="w-full max-w-4xl mx-auto mb-8" 
+                    setApi={(api) => {
+                      if (api && filteredImages.length > 0) {
+                        api.scrollTo(currentIndex);
+                      }
+                    }}
+          >
+            <CarouselContent>
+              {filteredImages.map((image, index) => (
+                <CarouselItem key={image.id} className="flex justify-center">
+                  <div 
+                    className="overflow-hidden rounded-lg cursor-pointer hover-scale transition-all duration-300"
+                    onClick={() => setSelectedImage(image)}
+                  >
+                    <img 
+                      src={image.src} 
+                      alt={image.alt} 
+                      className="w-full h-64 md:h-80 object-cover"
+                    />
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="left-0 opacity-70 hover:opacity-100" />
+            <CarouselNext className="right-0 opacity-70 hover:opacity-100" />
+          </Carousel>
+          
+          {/* Gallery Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {filteredImages.map((image) => (
               <div 
