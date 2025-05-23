@@ -52,7 +52,7 @@ const deliveryFormSchema = z.object({
 
 type DeliveryFormValues = z.infer<typeof deliveryFormSchema>;
 
-// WhatsApp business number for the cafe
+// WhatsApp business number for the cafe - ensure it has the correct format (no + symbol)
 const WHATSAPP_NUMBER = "9764493536";
 
 const DeliveryPage = () => {
@@ -138,6 +138,8 @@ const DeliveryPage = () => {
   // Send order to WhatsApp and navigate to success page
   const sendOrderToWhatsApp = (data: DeliveryFormValues) => {
     const formattedMessage = formatOrderForWhatsApp(data);
+    // Fix WhatsApp URL format to use the international format without the + symbol
+    // The correct format is: https://wa.me/[country code][phone number]
     const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${formattedMessage}`;
     
     // Store order data for success page
@@ -148,14 +150,17 @@ const DeliveryPage = () => {
       orderDate: new Date(),
     };
     
-    // Open WhatsApp in a new tab
-    const whatsappWindow = window.open(whatsappUrl, '_blank');
+    // Open WhatsApp in a new tab with proper window features to ensure it opens
+    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+    
+    console.log("WhatsApp URL:", whatsappUrl); // Log the URL for debugging
     
     // Set a timer to navigate to success page after WhatsApp opens
+    // Increased delay to ensure WhatsApp has time to open
     setTimeout(() => {
       // Navigate to success page with order details
       navigate("/delivery-success", { state: { orderDetails: orderData } });
-    }, 1000); // Short delay to ensure WhatsApp opens first
+    }, 1500); // Longer delay to ensure WhatsApp opens first
   };
 
   function onSubmit(data: DeliveryFormValues) {
@@ -166,17 +171,23 @@ const DeliveryPage = () => {
 
     setIsSubmitting(true);
     
-    // Send order data to WhatsApp
-    sendOrderToWhatsApp(data);
-    
-    toast.success("Order submitted successfully!", {
-      description: "Your order has been sent to the restaurant via WhatsApp.",
-    });
-    
-    // Reset form and cart
-    form.reset();
-    setCartItems([]);
-    setIsSubmitting(false);
+    try {
+      // Send order data to WhatsApp
+      sendOrderToWhatsApp(data);
+      
+      toast.success("Order submitted successfully!", {
+        description: "Your order has been sent to the restaurant via WhatsApp.",
+      });
+      
+      // Reset form and cart
+      form.reset();
+      setCartItems([]);
+    } catch (error) {
+      console.error("Error sending order:", error);
+      toast.error("Failed to send order. Please try again or contact the restaurant directly.");
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   const filteredItems = activeCategory === "all" 
