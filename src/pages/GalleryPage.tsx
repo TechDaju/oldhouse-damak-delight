@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { X } from "lucide-react";
 import { 
@@ -80,10 +81,10 @@ const GalleryPage = () => {
   
   const filteredImages = activeCategory === "all" ? galleryImages : galleryImages.filter(image => image.category === activeCategory);
 
-  // Auto-advance the carousel every 3 seconds
+  // Auto-advance the slideshow every 3 seconds
   useInterval(() => {
-    if (filteredImages.length > 0) {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % filteredImages.length);
+    if (galleryImages.length > 0) {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % galleryImages.length);
     }
   }, 3000);
 
@@ -142,18 +143,19 @@ const GalleryPage = () => {
         </div>
       </section>
       
-      {/* Gallery Carousel */}
+      {/* Full Gallery Slideshow */}
       <section className="section bg-accent">
         <div className="container-custom">
-          <Carousel className="w-full max-w-4xl mx-auto mb-8" 
+          <h2 className="text-2xl md:text-3xl font-serif font-bold mb-6 text-center">Full Gallery Slideshow</h2>
+          <Carousel className="w-full max-w-4xl mx-auto mb-12" 
                     setApi={(api) => {
-                      if (api && filteredImages.length > 0) {
+                      if (api && galleryImages.length > 0) {
                         api.scrollTo(currentIndex);
                       }
                     }}
           >
             <CarouselContent>
-              {filteredImages.map((image, index) => (
+              {galleryImages.map((image, index) => (
                 <CarouselItem key={image.id} className="flex justify-center">
                   <div 
                     className="overflow-hidden rounded-lg cursor-pointer hover-scale transition-all duration-300"
@@ -162,17 +164,20 @@ const GalleryPage = () => {
                     <img 
                       src={image.src} 
                       alt={image.alt} 
-                      className="w-full h-64 md:h-80 object-cover"
+                      className="w-full h-64 md:h-96 object-cover"
                     />
                   </div>
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious className="left-0 opacity-70 hover:opacity-100" />
-            <CarouselNext className="right-0 opacity-70 hover:opacity-100" />
+            <CarouselPrevious className="left-0 md:-left-12 opacity-70 hover:opacity-100" />
+            <CarouselNext className="right-0 md:-right-12 opacity-70 hover:opacity-100" />
           </Carousel>
           
-          {/* Gallery Grid */}
+          {/* Filtered Gallery */}
+          <h2 className="text-2xl md:text-3xl font-serif font-bold mb-6 text-center">
+            {activeCategory === "all" ? "Complete Gallery" : `${activeCategory.charAt(0).toUpperCase() + activeCategory.slice(1)} Gallery`}
+          </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {filteredImages.map((image) => (
               <div 
@@ -243,3 +248,4 @@ const GalleryPage = () => {
 };
 
 export default GalleryPage;
+
