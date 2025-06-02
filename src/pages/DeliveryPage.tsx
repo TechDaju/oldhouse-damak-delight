@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { toast } from "sonner";
 import { ShoppingCart, Check, Plus, Minus, Trash2 } from "lucide-react";
@@ -108,7 +107,7 @@ const DeliveryPage = () => {
 
   const calculateTotal = () => {
     return cartItems.reduce((total, item) => {
-      // Extract numeric value from price string (e.g., "रू 250" -> 250)
+      // Extract numeric value from price string (e.g., "રू 250" -> 250)
       const priceValue = parseInt(item.item.price.replace(/\D/g, ''));
       return total + (priceValue * item.quantity);
     }, 0);
@@ -118,7 +117,7 @@ const DeliveryPage = () => {
   const formatOrderForWhatsApp = (data: DeliveryFormValues) => {
     // Format cart items with emojis
     const itemsList = cartItems.map(item => {
-      // Extract numeric value from price string (e.g., "रू 250" -> 250)
+      // Extract numeric value from price string (e.g., "રු 250" -> 250)
       const priceValue = parseInt(item.item.price.replace(/\D/g, ''));
       const itemTotal = priceValue * item.quantity;
       return `- ${item.item.name} x${item.quantity} = Rs.${itemTotal}`;
@@ -222,7 +221,7 @@ const DeliveryPage = () => {
               Order For Delivery
             </h1>
             <p className="text-muted-foreground text-lg">
-              Enjoy our authentic Nepali cuisine delivered right to your doorstep.
+              Enjoy our authentic Indian and Nepali cuisine delivered right to your doorstep.
             </p>
           </div>
         </div>
@@ -238,10 +237,10 @@ const DeliveryPage = () => {
               <div className="flex overflow-x-auto space-x-2 pb-4 mb-6 scrollbar-none">
                 {[
                   { id: "all", label: "All" },
-                  { id: "breakfast", label: "Breakfast" },
-                  { id: "lunch", label: "Lunch" },
+                  { id: "appetizers", label: "Appetizers" },
+                  { id: "bread", label: "Bread" },
+                  { id: "lunch", label: "Main Course" },
                   { id: "dinner", label: "Dinner" },
-                  { id: "beverages", label: "Beverages" },
                   { id: "desserts", label: "Desserts" },
                 ].map((category) => (
                   <Button
@@ -367,7 +366,7 @@ const DeliveryPage = () => {
                       <TableFooter>
                         <TableRow>
                           <TableCell colSpan={2}>Total</TableCell>
-                          <TableCell className="text-right">रू {calculateTotal()}</TableCell>
+                          <TableCell className="text-right">રू {calculateTotal()}</TableCell>
                           <TableCell></TableCell>
                         </TableRow>
                       </TableFooter>
@@ -532,7 +531,7 @@ const DeliveryPage = () => {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  Minimum order for delivery is रू 300. Orders below this amount can be picked up at our restaurant.
+                  Minimum order for delivery is રુ 300. Orders below this amount can be picked up at our restaurant.
                 </p>
               </CardContent>
             </Card>

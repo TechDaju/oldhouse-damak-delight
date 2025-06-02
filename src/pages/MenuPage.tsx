@@ -1,10 +1,11 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ShoppingCart } from "lucide-react";
 import { MenuItem, menuItems } from "@/data/menu-items";
 
-type MenuCategory = "all" | "breakfast" | "lunch" | "dinner" | "beverages" | "desserts";
+type MenuCategory = "all" | "bread" | "appetizers" | "lunch" | "dinner" | "desserts";
 
 const MenuPage = () => {
   const [activeCategory, setActiveCategory] = useState<MenuCategory>("all");
@@ -26,11 +27,11 @@ const MenuPage = () => {
           <div className="text-center max-w-2xl mx-auto">
             <span className="inline-block text-spice-600 font-medium mb-2">OUR MENU</span>
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold mb-4">
-              Discover Traditional Nepali Cuisine
+              Discover Old House Restaurant & Bar Cuisine
             </h1>
             <p className="text-muted-foreground text-lg">
               Authentic dishes prepared with fresh ingredients and traditional recipes, 
-              bringing the true flavors of Nepal to your table.
+              bringing the true flavors of India and Nepal to your table.
             </p>
             <Button asChild className="mt-6">
               <Link to="/delivery">
@@ -48,10 +49,10 @@ const MenuPage = () => {
           <div className="flex overflow-x-auto space-x-2 pb-2 scrollbar-none">
             {[
               { id: "all", label: "All" },
-              { id: "breakfast", label: "Breakfast" },
-              { id: "lunch", label: "Lunch" },
+              { id: "appetizers", label: "Appetizers" },
+              { id: "bread", label: "Bread" },
+              { id: "lunch", label: "Main Course" },
               { id: "dinner", label: "Dinner" },
-              { id: "beverages", label: "Beverages" },
               { id: "desserts", label: "Desserts" },
             ].map((category) => (
               <Button
