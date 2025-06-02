@@ -96,10 +96,7 @@ const MenuPage = () => {
                   </div>
                 </div>
                 <div className="p-6">
-                  <div className="flex justify-between items-center mb-2">
-                    <h3 className="font-serif text-xl font-bold">{item.name}</h3>
-                    <span className="text-primary font-bold">{item.price}</span>
-                  </div>
+                  <h3 className="font-serif text-xl font-bold mb-2">{item.name}</h3>
                   <p className="text-muted-foreground mb-4">{item.description}</p>
                   <Button asChild variant="outline" className="w-full">
                     <Link to="/delivery">

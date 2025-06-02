@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { toast } from "sonner";
 import { ShoppingCart, Check, Plus, Minus, Trash2 } from "lucide-react";
@@ -104,23 +105,12 @@ const DeliveryPage = () => {
     setCartItems(prevItems => prevItems.filter(item => item.item.id !== itemId));
     toast.info("Item removed from cart");
   };
-
-  const calculateTotal = () => {
-    return cartItems.reduce((total, item) => {
-      // Extract numeric value from price string (e.g., "રू 250" -> 250)
-      const priceValue = parseInt(item.item.price.replace(/\D/g, ''));
-      return total + (priceValue * item.quantity);
-    }, 0);
-  };
   
   // Function to prepare order data for WhatsApp
   const formatOrderForWhatsApp = (data: DeliveryFormValues) => {
     // Format cart items with emojis
     const itemsList = cartItems.map(item => {
-      // Extract numeric value from price string (e.g., "રු 250" -> 250)
-      const priceValue = parseInt(item.item.price.replace(/\D/g, ''));
-      const itemTotal = priceValue * item.quantity;
-      return `- ${item.item.name} x${item.quantity} = Rs.${itemTotal}`;
+      return `- ${item.item.name} x${item.quantity}`;
     }).join('\n');
     
     // Create formatted message with emojis
@@ -130,8 +120,7 @@ const DeliveryPage = () => {
       `📞 Phone: ${data.phone}\n` +
       `🏠 Address: ${data.address}\n` +
       `${data.notes ? `📝 Notes: ${data.notes}\n` : ''}` +
-      `🍴 Items:\n${itemsList}\n` +
-      `💰 Total = Rs.${calculateTotal()}`;
+      `🍴 Items:\n${itemsList}`;
       
     // Properly encode the message for URL use
     return encodeURIComponent(message);
@@ -150,7 +139,6 @@ const DeliveryPage = () => {
     const orderData = {
       customer: data,
       items: cartItems,
-      total: calculateTotal(),
       orderDate: new Date(),
     };
     
@@ -266,10 +254,7 @@ const DeliveryPage = () => {
                       />
                     </div>
                     <CardHeader className="p-4 pb-0">
-                      <div className="flex justify-between items-center">
-                        <CardTitle className="text-lg">{item.name}</CardTitle>
-                        <span className="font-bold text-primary">{item.price}</span>
-                      </div>
+                      <CardTitle className="text-lg">{item.name}</CardTitle>
                     </CardHeader>
                     <CardContent className="p-4 pt-2">
                       <p className="text-muted-foreground text-sm line-clamp-2 mb-3">
@@ -318,7 +303,6 @@ const DeliveryPage = () => {
                         <TableRow>
                           <TableHead>Item</TableHead>
                           <TableHead className="text-right">Qty</TableHead>
-                          <TableHead className="text-right">Price</TableHead>
                           <TableHead className="w-8"></TableHead>
                         </TableRow>
                       </TableHeader>
@@ -347,9 +331,6 @@ const DeliveryPage = () => {
                                 </Button>
                               </div>
                             </TableCell>
-                            <TableCell className="text-right">
-                              {cartItem.item.price}
-                            </TableCell>
                             <TableCell>
                               <Button 
                                 variant="ghost" 
@@ -363,13 +344,6 @@ const DeliveryPage = () => {
                           </TableRow>
                         ))}
                       </TableBody>
-                      <TableFooter>
-                        <TableRow>
-                          <TableCell colSpan={2}>Total</TableCell>
-                          <TableCell className="text-right">રू {calculateTotal()}</TableCell>
-                          <TableCell></TableCell>
-                        </TableRow>
-                      </TableFooter>
                     </Table>
                   ) : (
                     <div className="text-center py-6 text-muted-foreground">
@@ -527,11 +501,11 @@ const DeliveryPage = () => {
                 <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto">
                   <Check className="h-6 w-6 text-primary" />
                 </div>
-                <CardTitle className="mt-4">Minimum Order</CardTitle>
+                <CardTitle className="mt-4">Contact Us</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  Minimum order for delivery is રુ 300. Orders below this amount can be picked up at our restaurant.
+                  For any questions about your order, please contact us directly through WhatsApp or call our restaurant.
                 </p>
               </CardContent>
             </Card>
